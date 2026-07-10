@@ -36,6 +36,12 @@ export const SidebarContainer = styled(Box, {
   padding: "0 44px 20px 0",
   backgroundColor: theme.palette.background.default,
   transition: "all 0.3s ease-in-out",
+  "@media (min-width: 1194px)": {
+    backgroundColor:
+      theme.palette.mode === "dark"
+        ? "#020713"
+        : theme.palette.background.default
+  },
   "&::-webkit-scrollbar": {
     width: "2px"
   },
@@ -74,17 +80,17 @@ export const SectionTitleRow = styled(Box, {
       theme.palette.mode === "dark" && isToggled && !showInFullScreenMobile
         ? "#D9D9D9"
         : theme.palette.mode === "light" && isToggled && !showInFullScreenMobile
-        ? "#000000"
-        : "transparent",
+          ? "#000000"
+          : "transparent",
     "& p": {
       color:
         theme.palette.mode === "dark" && isToggled && !showInFullScreenMobile
           ? "#000000"
           : theme.palette.mode === "light" &&
-            isToggled &&
-            !showInFullScreenMobile
-          ? "#ffffff"
-          : "inherit"
+              isToggled &&
+              !showInFullScreenMobile
+            ? "#ffffff"
+            : "inherit"
     },
     "@media(max-width: 1086px)": {
       height: "auto"
@@ -131,9 +137,12 @@ export const ChevronIcon = styled(ChevronRightSVG, {
   transform: isExpanded ? "rotate(-90deg)" : "rotate(90deg)",
   transition: "all 0.3s ease-in-out",
   "& svg": {
-    fill:(isExpanded || isToggled) && theme.palette.mode === "dark" ? "#000000"
-    : (isExpanded || isToggled) && theme.palette.mode === "light" ? "#ffffff"
-    : theme.palette.text.primary,
+    fill:
+      (isExpanded || isToggled) && theme.palette.mode === "dark"
+        ? "#000000"
+        : (isExpanded || isToggled) && theme.palette.mode === "light"
+          ? "#ffffff"
+          : theme.palette.text.primary
   }
 }));
 

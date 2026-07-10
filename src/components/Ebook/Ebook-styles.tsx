@@ -165,6 +165,59 @@ export const CTABoxTextFieldContainer = styled(Box)(({ theme }) => ({
   width: "100%"
 }));
 
+export const EbookInputField = styled(TextField)(({ theme }) => ({
+  "@media (min-width: 1194px)": {
+    "& .MuiFilledInput-root": {
+      minHeight: "58px",
+      backgroundColor:
+        theme.palette.mode === "light"
+          ? "rgba(0, 0, 0, 0.05)"
+          : "rgba(255, 255, 255, 0.09)",
+      borderTopLeftRadius: "4px",
+      borderTopRightRadius: "4px",
+      overflow: "hidden"
+    },
+    "& .MuiFilledInput-root:hover": {
+      backgroundColor:
+        theme.palette.mode === "light"
+          ? "rgba(0, 0, 0, 0.07)"
+          : "rgba(255, 255, 255, 0.12)"
+    },
+    "& .MuiFilledInput-root.Mui-focused": {
+      backgroundColor:
+        theme.palette.mode === "light"
+          ? "rgba(0, 0, 0, 0.07)"
+          : "rgba(255, 255, 255, 0.12)"
+    },
+    "& .MuiFilledInput-input": {
+      boxSizing: "border-box",
+      height: "58px",
+      padding: "25px 12px 8px",
+      fontFamily: oxygen.style.fontFamily,
+      fontSize: "18px",
+      color: theme.palette.text.primary
+    },
+    "& .MuiInputLabel-filled": {
+      transform: "translate(12px, 18px) scale(1)",
+      color: theme.palette.mode === "light" ? "#666a72" : "#d7dbe4",
+      fontFamily: oxygen.style.fontFamily,
+      fontSize: "18px",
+      lineHeight: 1.2
+    },
+    "& .MuiInputLabel-filled.MuiInputLabel-shrink": {
+      transform: "translate(12px, 7px) scale(0.74)"
+    },
+    "& .MuiInputLabel-filled.Mui-focused": {
+      color: theme.palette.mode === "light" ? "#4d5664" : "#eef3ff"
+    },
+    "& .MuiFormHelperText-root": {
+      marginLeft: 0,
+      marginTop: "6px",
+      fontFamily: oxygen.style.fontFamily
+    }
+  }
+}));
+
 export const CTABoxButton = styled(Button)(({ theme }) => ({
   fontFamily: oxygen.style.fontFamily,
   fontWeight: 500,
@@ -187,22 +240,22 @@ export const BookSectionContainer = styled(Box)(({ theme }) => ({
   flexDirection: "row",
   alignItems: "flex-start",
   justifyContent: "center",
-  backgroundColor: theme.palette.mode === "light" ? "#D4D4D4" : "#080B1D",
-  padding: "100px 195px",
+  backgroundColor:
+    theme.palette.mode === "light" ? theme.palette.background.default : "#020713",
+  padding: "100px 195px 140px",
   gap: "100px",
   width: "calc(100vw - 16px)",
-  maxHeight: "800px",
+  boxSizing: "border-box",
   "@media (max-width: 1500px)": {
-    padding: "100px 100px",
+    padding: "100px 100px 140px",
     gap: "50px"
   },
   [theme.breakpoints.down("lg")]: {
-    padding: "100px 50px",
+    padding: "100px 50px 130px",
     gap: "30px"
   },
   [theme.breakpoints.down("md")]: {
     flexDirection: "column",
-    maxHeight: "100%",
     padding: "20px 50px 50px 50px",
     alignItems: "center"
   },
@@ -226,7 +279,7 @@ export const BookImage = styled("img")(({ theme }) => ({
     transform: "translateY(-200px)"
   },
   "@media (max-width: 1578px)": {
-    width: "400px",
+    width: "400px"
   },
   [theme.breakpoints.down("md")]: {
     width: "80%",
@@ -320,7 +373,7 @@ export const SurveyText = styled(Box)(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
   gap: "15px",
-  width: "100%",
+  width: "100%"
 }));
 
 export const SurveyTitle = styled(Typography)(({ theme }) => ({

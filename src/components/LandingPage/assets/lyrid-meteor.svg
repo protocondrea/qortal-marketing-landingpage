@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1976 547" role="img" aria-label="Lyrid Meteor, when the sky breaks">
+  <defs>
+    <linearGradient id="sky" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#020812"/>
+      <stop offset="0.45" stop-color="#041421"/>
+      <stop offset="0.72" stop-color="#07192a"/>
+      <stop offset="1" stop-color="#02050b"/>
+    </linearGradient>
+    <linearGradient id="teal" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0" stop-color="#d9fbff"/>
+      <stop offset="0.42" stop-color="#13baca"/>
+      <stop offset="1" stop-color="#00606d"/>
+    </linearGradient>
+    <linearGradient id="meteor" x1="0" x2="1" y1="0" y2="0">
+      <stop offset="0" stop-color="#faffff"/>
+      <stop offset="0.18" stop-color="#62f4ff"/>
+      <stop offset="0.38" stop-color="#05a9d6"/>
+      <stop offset="0.64" stop-color="#f2a355"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="softText" x="-4%" y="-4%" width="108%" height="108%">
+      <feDropShadow dx="0" dy="5" stdDeviation="3" flood-color="#000" flood-opacity="0.6"/>
+    </filter>
+  </defs>
+  <rect width="1976" height="547" rx="18" fill="url(#sky)"/>
+  <rect x="58" width="20" height="547" fill="#079aa5" opacity="0.86"/>
+  <rect x="80" width="5" height="547" fill="#6af7ff" opacity="0.25"/>
+  <g opacity="0.92">
+    <circle cx="1085" cy="112" r="2" fill="#bdeeff"/>
+    <circle cx="1192" cy="68" r="2.4" fill="#dffcff"/>
+    <circle cx="875" cy="86" r="1.8" fill="#eafcff"/>
+    <circle cx="1430" cy="120" r="1.8" fill="#eafcff"/>
+    <circle cx="1600" cy="66" r="1.4" fill="#c2f2ff"/>
+    <circle cx="1788" cy="132" r="1.8" fill="#bdeeff"/>
+    <circle cx="1350" cy="218" r="1.4" fill="#dffcff"/>
+    <circle cx="1020" cy="262" r="1.4" fill="#c2f2ff"/>
+  </g>
+  <g filter="url(#glow)">
+    <path d="M1250 425 C1330 290 1446 196 1622 68 C1475 196 1370 306 1262 431 Z" fill="url(#meteor)" opacity="0.96"/>
+    <path d="M1265 420 C1420 274 1598 144 1910 8" fill="none" stroke="#3edfff" stroke-width="3" opacity="0.34"/>
+    <path d="M1265 420 C1446 310 1616 250 1838 165" fill="none" stroke="#ef9b59" stroke-width="4" opacity="0.34"/>
+    <circle cx="1258" cy="421" r="14" fill="#eaffff"/>
+    <circle cx="1258" cy="421" r="38" fill="#20d8ff" opacity="0.22"/>
+  </g>
+  <path d="M1320 520 C1470 374 1610 430 1700 300 C1780 376 1860 336 1976 438 V547 H1320 Z" fill="#07101c" opacity="0.86"/>
+  <path d="M0 547 C146 410 294 428 450 515 C560 575 636 492 760 547 Z" fill="#07101c" opacity="0.9"/>
+  <g filter="url(#softText)">
+    <text x="178" y="252" font-family="Inter, Arial Black, Arial, sans-serif" font-size="248" font-weight="900" letter-spacing="6" fill="#f7f7f5">LYRID</text>
+    <text x="178" y="421" font-family="Inter, Arial Black, Arial, sans-serif" font-size="210" font-weight="900" letter-spacing="3" fill="url(#teal)">METEOR</text>
+    <text x="284" y="488" font-family="Inter, Arial, sans-serif" font-size="34" font-weight="900" letter-spacing="18" fill="#098a96">WHEN THE SKY BREAKS</text>
+  </g>
+  <line x1="175" y1="473" x2="267" y2="473" stroke="#1de5ff" stroke-width="3" opacity="0.76"/>
+  <circle cx="176" cy="473" r="8" fill="#f5ffff" filter="url(#glow)"/>
+  <circle cx="1833" cy="462" r="48" fill="none" stroke="#068b95" stroke-width="5" opacity="0.84"/>
+  <path d="M1806 478 C1840 452 1858 419 1870 402 C1864 438 1847 464 1806 478 Z" fill="#0a9ba7"/>
+</svg>

@@ -6,8 +6,30 @@ export const Wrapper = styled("div")(({ theme }) => ({
   flexDirection: "column",
   alignItems: "center",
   justifyContent: "flex-start",
+  width: "100%",
   minHeight: "100vh",
+  boxSizing: "border-box",
   padding: "0 16px 36px 16px",
+  "@media (min-width: 1194px)": {
+    alignItems: "stretch",
+    padding: 0,
+    overflowX: "hidden",
+    background:
+      theme.palette.mode === "dark"
+        ? "#020713"
+        : theme.palette.background.default
+  },
+  "&.landingPage": {
+    "@media (min-width: 1194px)": {
+      width: "100%",
+      padding: 0,
+      overflowX: "hidden",
+      background:
+        theme.palette.mode === "dark"
+          ? "#020713"
+          : theme.palette.background.default
+    }
+  },
   "&.BGImageMain": {
     position: "relative",
     zIndex: 1,
@@ -86,5 +108,5 @@ export const Wrapper = styled("div")(({ theme }) => ({
       opacity: 0.1,
       zIndex: -1
     }
-  },
+  }
 }));

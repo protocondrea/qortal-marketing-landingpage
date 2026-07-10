@@ -314,12 +314,16 @@ const Downloads = () => {
         <MainCol>
           <DownloadTextCol>
             <DownloadText>
-              <strong>Qortal User Interface</strong>
+              <strong>Qortal Hub</strong>
             </DownloadText>
             <DownloadSubText>
-              This is what most users need. The Qortal User Interface lets you
-              access Qortal apps, messaging, groups, and wallets. Only a simple
-              installation is needed.
+              Access Q-Apps, messaging, groups, wallets, publishing, and the
+              Qortal network through one desktop experience.
+              <br />
+              <br />
+              Use a Local Node for the full decentralized experience, or
+              connect through a Public Node for quick access with some
+              limitations.
             </DownloadSubText>
           </DownloadTextCol>
           {isIOS ? (
@@ -583,10 +587,15 @@ const Downloads = () => {
                 <DownloadSubCol>
                   <DownloadTextCol>
                   <DownloadText style={{ marginTop: 0 }}>
-                    <strong>Qortal Core</strong> (Optional)
+                    <strong>Qortal Core</strong>
                   </DownloadText>
                   <DownloadSubText>
-                    Qortal Core runs a full node. This is optional and only needed if you want to support the network, mint QORT, or run infrastructure. It is recommended for those looking to fully participate in the Qortal network.
+                    Power the decentralized infrastructure behind Qortal Hub.
+                    <br />
+                    <br />
+                    Run a local node for full decentralized access, local-first
+                    data handling, publishing, minting, and improved QDN
+                    reliability.
                   </DownloadSubText>
                   </DownloadTextCol>
                   <DownloadsCoreGrid>

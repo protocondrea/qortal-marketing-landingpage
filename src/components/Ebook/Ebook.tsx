@@ -12,6 +12,7 @@ import {
   CTADescription,
   CTASubTitle,
   CTATitle,
+  EbookInputField,
   EbookTooltip,
   IconBlock,
   IconImg,
@@ -26,7 +27,6 @@ import {
   SurveyTitle
 } from "./Ebook-styles";
 import { Tooltip, useTheme } from "@mui/material";
-import { CustomInputField } from "../Blog/BlogPostsClient-styles";
 import { downloadEbook, submitBlurb } from "../../utils/ebookApiController";
 import { useDispatch } from "react-redux";
 import { setNotification } from "../../state/features/notificationsSlice";
@@ -209,7 +209,7 @@ const Ebook = () => {
                 </EbookTooltip>
                 <CTABoxTitle>Get Your Free Copy</CTABoxTitle>
                 <CTABoxTextFieldContainer>
-                  <CustomInputField
+                  <EbookInputField
                     name="name"
                     aria-label="name"
                     label="Name"
@@ -220,7 +220,7 @@ const Ebook = () => {
                     error={nameError}
                     helperText={nameError ? "Please enter your name." : ""}
                   />
-                  <CustomInputField
+                  <EbookInputField
                     name="email"
                     label="E-Mail address"
                     variant="filled"

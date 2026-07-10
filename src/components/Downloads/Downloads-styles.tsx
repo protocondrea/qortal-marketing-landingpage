@@ -80,8 +80,8 @@ export const DownloadCoreRow = styled(Box)(({ theme }) => ({
 
 export const DownloadsUIGrid = styled(Box)({
   display: "grid",
-  gridTemplateColumns: "repeat(5, 1fr)",
-  gap: "10px",
+  gridTemplateColumns: "repeat(3, 1fr)",
+  gap: "12px",
   "@media(max-width: 751px)": {
     gridTemplateColumns: "repeat(3, 1fr)"
   }
@@ -164,7 +164,7 @@ export const DownloadSubText = styled(Typography)(({ theme }) => ({
   color: theme.palette.text.primary,
   fontWeight: 300,
   fontSize: "20px",
-  lineHeight: "22px",
+  lineHeight: "28px",
   alignSelf: "flex-start",
   userSelect: "none",
   [theme.breakpoints.down("lg")]: {

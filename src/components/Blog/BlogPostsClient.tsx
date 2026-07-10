@@ -46,11 +46,15 @@ const BlogPostsClient: React.FC<BlogPostsClientProps> = ({ blogs }) => {
               aria-label="Click to read more"
               key={blog.identifier}
               role="button"
+              tabIndex={0}
               onClick={() => {
                 router.push(`/blog/${blog.identifier}`);
               }}
-              onKeyDown={() => {
-                router.push(`/blog/${blog.identifier}`);
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  router.push(`/blog/${blog.identifier}`);
+                }
               }}
             >
               <BlogPostImage

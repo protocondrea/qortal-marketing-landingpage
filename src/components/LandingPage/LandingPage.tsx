@@ -1,980 +1,690 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
-import ReactGA from "react-ga4";
+
 import {
-  CTAButton1,
-  CTAButton2,
-  Container,
-  Header,
-  QortalFeaturesSection,
-  SubHeader,
-  SubHeaderBox,
-  SubHeaderBoxImage,
-  TopCard1,
-  TopCard2,
-  TopCard3,
-  TopCardImage,
-  TopCardSubContainer,
-  TopCardSubTitle,
-  TopCardTitle,
-  TopFold,
-  TopFoldButtonRow,
-  TopFoldCol,
-  TopFoldRow,
-  TopFoldWordCol,
-  TopCardRow,
-  VideoBox,
-  TopOfPageRef,
-  MiddleOfPageRef,
-  TopCard4,
-  GroupSection,
-  SectionCol,
-  GroupSectionImgBox,
-  SectionImg,
-  SectionHeader,
-  SectionHeaderCol,
-  SectionHeaderSubtitle,
-  SectionHeaderTitle,
-  SectionLinesImg,
-  SectionDescriptionCol,
-  SectionDescriptionTitle,
-  SectionDescription,
-  GroupSectionImgBox2,
-  QAppsSection,
-  QAppsSectionImgBox,
-  SectionDownloadLink,
-  QAppsLogosRow,
-  QAppsLogo,
-  QAppsSectionRow,
-  QTradeSection,
-  QTradeSectionImgBox,
-  OpenSourceSection,
-  OpenSourceSectionImgBox,
-  OpenSourceBox,
-  OpenSourceImg,
-  FinalText,
-  GroupEncryptedHeader,
-  QMailDescriptionCol,
-  QMailDescriptionCol as QChatDescriptionCol,
-  QTradeDescriptionCol,
-  QORTDescriptionCol,
-  OpenSourceDescriptionCol,
-  TopCardLockIcon,
-  TopCardSubContainerCrypto,
-  QAppsDescriptionCol,
-  RightArrow,
-  RadioButtons,
-  TopFoldMainCol,
-  SectionHeaderMobile,
-  SectionMobileRow,
-  SectionMobileHeader,
-  QChatSectionCol,
-  QTradeSectionCol,
-  QonnectFourMobileCol,
-  FinalTextContainer,
-  OpenSourceMobileSection,
-  EbookPromoTitle,
-  EbookPromoSubTitle,
-  EbookPromoContainer,
-  EbookPromoButton,
-  EbookPromoTextCol,
-  InfoRow,
-  SubHeader2,
-  IconRow,
-  IconImg,
-  SubHeader3,
-  ArrowDownIcon,
-  SectionTitle,
-  SubHeaderRow
-} from "../../components/LandingPage/LandingPage-styles";
-import { YoutubeVideoContainer } from "../Qort/QORTPage-styles";
-import { YoutubePlaceholder } from "../YouTube/YoutubePlaceholder";
-import { useMediaQuery, useTheme } from "@mui/material";
-import { useRouter } from "next/navigation";
-import Modal from "../Common/Modal/Modal";
-import { ScrollToTopButton, TopArrow } from "../Wiki/Wiki-styles";
-import { CommonModal } from "../Common/CommonModal/CommonModal";
-import { DownloadSVG } from "../Common/Icons/DownloadSVG";
-import { BookSVG } from "../Common/Icons/BookSVG";
+  Box,
+  GlobalStyles,
+  Typography,
+  useMediaQuery,
+  useTheme
+} from "@mui/material";
+import AdsClickIcon from "@mui/icons-material/AdsClick";
+import FileDownloadRoundedIcon from "@mui/icons-material/FileDownloadRounded";
+import dynamic from "next/dynamic";
+import Link from "next/link";
+import { inter, segoeUIHubHeadline } from "../../app/fonts";
+import { QortalSVG } from "../Common/Icons/QortalSVG";
+import Demo from "./DemoComponent";
+
+const LandingPagePrevious = dynamic(() => import("./LandingPagePrevious"));
 
 const LandingPage = () => {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
-  const router = useRouter();
+  const isMobileViewport = useMediaQuery("(max-width: 1193px)");
+  const isDarkMode = theme.palette.mode === "dark";
+  const pageBackground = isDarkMode ? "#020713" : theme.palette.background.default;
+  const heroTextColor = isDarkMode ? "#f7faff" : "#07111f";
+  const heroMutedTextColor = isDarkMode
+    ? "rgba(242, 247, 255, 0.92)"
+    : "rgba(8, 17, 34, 0.78)";
+  const heroHelperTextColor = isDarkMode
+    ? "rgba(218, 229, 243, 0.78)"
+    : "rgba(8, 17, 34, 0.62)";
 
-  const topCard1Feature = useRef<HTMLDivElement | null>(null);
-  const topCard2Feature = useRef<HTMLDivElement | null>(null);
-  const topCard3Feature = useRef<HTMLDivElement | null>(null);
-  const topCard4Feature = useRef<HTMLDivElement | null>(null);
-  const topOfPageRef = useRef<HTMLDivElement | null>(null);
-  const middleOfPageRef = useRef<HTMLDivElement | null>(null);
-  const cardRefs = [useRef(null), useRef(null), useRef(null), useRef(null)];
-
-  const [showVideoPlayer, setShowVideoPlayer] = useState<boolean>(false);
-  const [showButton, setShowButton] = useState(false);
-  const [openModal, setOpenModal] = useState<boolean>(false);
-  const [selectedImage, setSelectedImage] = useState<string>("");
-  const [activeCard, setActiveCard] = useState(0);
-  const [firstTimeVisitor, setFirstTimeVisitor] = useState<boolean>(false);
-
-  // Display download ebook modal for first time visitors
-  useEffect(() => {
-    const isFirstTimeVisitor = localStorage.getItem("isFirstTimeVisitor");
-
-    if (!isFirstTimeVisitor) {
-      setTimeout(() => {
-        // Perform actions for first-time visitors
-        setFirstTimeVisitor(true);
-        // Set the flag in localStorage
-        localStorage.setItem("isFirstTimeVisitor", "false");
-      }, 30000);
-    } else {
-      return;
-    }
-  }, []);
-
-  const scrollToTopCard1Feature = () => {
-    if (topCard1Feature?.current) {
-      topCard1Feature?.current.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-        inline: "nearest"
-      });
-    }
-  };
-
-  const scrollToTopCard2Feature = () => {
-    if (topCard2Feature?.current) {
-      topCard2Feature?.current.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-        inline: "nearest"
-      });
-    }
-  };
-
-  const scrollToTopCard3Feature = () => {
-    if (topCard3Feature?.current) {
-      topCard3Feature?.current.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-        inline: "nearest"
-      });
-    }
-  };
-
-  const handleVideoClick = () => {
-    setShowVideoPlayer((prevState) => !prevState);
-  };
-
-  // Intersection observer to show scroll to top button
-  useEffect(() => {
-    const handleScroll = () => {
-      if (!middleOfPageRef.current) return;
-      const rect = middleOfPageRef.current?.getBoundingClientRect();
-      const isScrolledPast = rect && rect.top < 0; // Element is above the viewport
-      const notAtTop = window.scrollY > 0; // User is not at the top of the page
-
-      // Show button only if the user has scrolled past the element and is not at the top
-      setShowButton(isScrolledPast && notAtTop);
-    };
-
-    // Listen for scroll events
-    window.addEventListener("scroll", handleScroll);
-
-    // Run on mount to initialize state
-    handleScroll();
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
-
-  const scrollToTop = () => {
-    if (topOfPageRef.current) {
-      topOfPageRef.current.scrollIntoView({ behavior: "smooth" });
-    }
-  };
-
-  useEffect(() => {
-    const observerOptions = {
-      root: null,
-      rootMargin: "0px",
-      threshold: 0.5
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          const index = cardRefs.findIndex(
-            (ref) => ref.current === entry.target
-          );
-          setActiveCard(index);
-        }
-      });
-    }, observerOptions);
-
-    cardRefs.forEach((ref) => {
-      if (ref.current) {
-        observer.observe(ref.current);
-      }
-    });
-
-    return () => {
-      cardRefs.forEach((ref) => {
-        if (ref.current) {
-          observer.unobserve(ref.current);
-        }
-      });
-    };
-  }, [cardRefs]);
+  if (isMobileViewport) {
+    return <LandingPagePrevious />;
+  }
 
   return (
-    <Container>
-      <TopOfPageRef ref={topOfPageRef} />
-      <TopFoldCol>
-        <TopFoldRow>
-          <Header>
-            A BRAND{" "}
-            <span style={{ color: theme.palette.customBlue.main }}>
-              NEW INTERNET
-            </span>{" "}
-            WHERE YOU CANNOT BE CENSORED!
-          </Header>
-        </TopFoldRow>
-        <TopFoldRow>
-          <SubHeader>
-            No AWS. No Google. No kill switch. Your content, your data, yours
-            forever. <strong>Up and running in under 5 minutes.</strong>
-          </SubHeader>
-        </TopFoldRow>
-        <InfoRow>
-          <SubHeader2>500+ apps already deployed on Qortal!</SubHeader2>
-          <IconRow>
-            <IconImg
-              src={"/images/LandingPage/Q-Tube Avatar.png"}
-              alt="Qortal Q-Apps Q-Tube Icon"
-              width={30}
-              height={30}
-              quality={100}
-            />
-            <IconImg
-              src={"/images/LandingPage/Q-Share Avatar.png"}
-              alt="Qortal Q-Apps Q-Share Icon"
-              width={30}
-              height={30}
-              quality={100}
-            />
-            <IconImg
-              src={"/images/LandingPage/Q-Mail Avatar.png"}
-              alt="Qortal Q-Apps Q-Mail Icon"
-              width={30}
-              height={30}
-              quality={100}
-            />
-          </IconRow>
-        </InfoRow>
-        <TopFoldButtonRow>
-          <CTAButton1
-            onClick={() => {
-              ReactGA.event({
-                category: "User",
-                action: "Clicked Learn why Button",
-                label: "Learn why Button"
-              });
-              scrollToTopCard1Feature();
-            }}
-          >
-            LEARN WHY
-          </CTAButton1>
-          <CTAButton2
-            onClick={() => {
-              ReactGA.set({ dimension1: "Landing Page Download Button" }); // Event-level dimension
-              ReactGA.event({
-                category: "User",
-                action: "Clicked Main Download CTA Button",
-                label: "Clicked Main Download CTA Button"
-              });
-              router.push("/downloads");
-            }}
-          >
-            DOWNLOAD
-          </CTAButton2>
-        </TopFoldButtonRow>
-      </TopFoldCol>
-
-      <TopFoldMainCol>
-        <SubHeaderRow>
-          <SubHeader3>
-            The only Web3 platform with these features already LIVE{" "}
-          </SubHeader3>
-          <ArrowDownIcon
-            color={theme.palette.text.primary}
-            width={isMobile ? "28" : "30"}
-            height={isMobile ? "28" : "30"}
-          />
-        </SubHeaderRow>
-        <TopCardRow>
-          <TopCard1
-            ref={cardRefs[0]}
-            role="button"
-            aria-label="Group-Encrypted Chats - COMMUNICATION"
-            tabIndex={0}
-            onKeyDown={(e) => {
-              if (e.key === "Enter" || e.key === " ") {
-                scrollToTopCard1Feature();
-              }
-            }}
-            onClick={() => {
-              scrollToTopCard1Feature();
-            }}
-          >
-            <TopCardSubContainer>
-              <TopCardTitle>COMMUNICATION</TopCardTitle>
-              <TopCardSubTitle>Group-Encrypted Chats</TopCardSubTitle>
-            </TopCardSubContainer>
-            <TopCardImage
-              src={"/images/LandingPage/Q-Chat.png"}
-              alt="Qortal Group Encrypted Chat Screenshot"
-              width={1920}
-              height={1080}
-              quality={100}
-            />
-          </TopCard1>
-          <TopCard2
-            ref={cardRefs[1]}
-            role="button"
-            aria-label="Qortal Q-Apps - APPS YOU CAN USE TODAY"
-            tabIndex={0}
-            onKeyDown={(e) => {
-              if (e.key === "Enter" || e.key === " ") {
-                scrollToTopCard2Feature();
-              }
-            }}
-            onClick={() => {
-              scrollToTopCard2Feature();
-            }}
-          >
-            <TopCardSubContainer>
-              <TopCardTitle>APPS YOU CAN USE TODAY</TopCardTitle>
-              <TopCardSubTitle>Q-Apps</TopCardSubTitle>
-            </TopCardSubContainer>
-            <TopCardImage
-              src={"/images/LandingPage/Q-Tube Video Screenshot.png"}
-              alt="Qortal Q-Apps Screenshot"
-              width={1920}
-              height={1080}
-              quality={100}
-            />
-          </TopCard2>
-          <TopCard3
-            ref={cardRefs[2]}
-            role="button"
-            aria-label="Trading DEX Platform and QORT - CRYPTO"
-            tabIndex={0}
-            onKeyDown={(e) => {
-              if (e.key === "Enter" || e.key === " ") {
-                scrollToTopCard3Feature();
-              }
-            }}
-            onClick={() => {
-              scrollToTopCard3Feature();
-            }}
-          >
-            <TopCardSubContainerCrypto>
-              <TopCardTitle>CRYPTO</TopCardTitle>
-              <TopCardSubTitle>Trading DEX Platform & QORT</TopCardSubTitle>
-            </TopCardSubContainerCrypto>
-            <TopCardImage
-              src={"/images/LandingPage/Q-Trade.png"}
-              alt="Qortal Q-Trade Screenshot"
-              width={1920}
-              height={1080}
-              quality={100}
-            />
-          </TopCard3>
-        </TopCardRow>
-        <RadioButtons>
-          {[0, 1, 2].map((index) => (
-            <input
-              key={index}
-              type="radio"
-              name="topCard"
-              checked={activeCard === index}
-              readOnly
-              aria-label={`Card ${index + 1}`}
-            />
-          ))}
-        </RadioButtons>
-      </TopFoldMainCol>
-      <VideoBox>
-        <YoutubeVideoContainer>
-          {showVideoPlayer ? (
-            <iframe
-              src="https://www.youtube.com/embed/pWyB8tNZZ40?si=hRHI1Q25ab5M2AA7&autoplay=1&rel=0"
-              loading="lazy"
-              title="The internet is dying"
-              allowFullScreen
-              allow="autoplay"
-            ></iframe>
-          ) : (
-            <YoutubePlaceholder
-              className="landing-page-video"
-              isModal={false}
-              onClick={handleVideoClick}
-              YoutubeThumbnail={
-                "/images/Youtube/The internet is dying thumbnail.png"
-              }
-              YoutubeTitle="The internet is dying"
-            />
-          )}
-        </YoutubeVideoContainer>
-      </VideoBox>
-      <QortalFeaturesSection>
-        <MiddleOfPageRef ref={middleOfPageRef} />
-
-        {/* Groups Section */}
-
-        <GroupSection ref={topCard1Feature}>
-          <SectionTitle>
-            With one download, you can access a brand new peer-to-peer internet
-            where censorship is impossible.
-          </SectionTitle>
-          <SectionCol style={{ alignItems: "flex-start" }}>
-            <SectionMobileHeader>Q-Mail</SectionMobileHeader>
-            <GroupSectionImgBox>
-              <SectionImg
-                src={
-                  isMobile
-                    ? "/images/LandingPage/QMailScreenshotMobile.webp"
-                    : "/images/LandingPage/Q-AppsLibrary.png"
-                }
-                alt={
-                  isMobile
-                    ? "Qortal Q-Mail Screenshot"
-                    : "Qortal Q-Apps Library Screenshot"
-                }
-                width={1920}
-                height={1080}
-                quality={100}
-                onClick={() => {
-                  if (isMobile) return;
-                  setOpenModal(true);
-                  setSelectedImage("/images/LandingPage/Q-AppsLibrary.png");
-                }}
-              />
-            </GroupSectionImgBox>
-            <SectionHeader>
-              <SectionLinesImg
-                src={"/images/LandingPage/GreenLines.png"}
-                alt=""
-                width={40}
-                height={63}
-                quality={100}
-              />
-              <SectionHeaderCol>
-                <SectionHeaderSubtitle>EASE OF USE</SectionHeaderSubtitle>
-                <SectionHeaderTitle>
-                  What makes Qortal so easy to get into?
-                </SectionHeaderTitle>
-              </SectionHeaderCol>
-            </SectionHeader>
-            <QMailDescriptionCol>
-              <SectionDescriptionTitle>
-                Account Creation In Minutes
-              </SectionDescriptionTitle>
-              <SectionDescription>
-                With other Web3 projects, you get lost in complicated setups,
-                seed phrases, and 3rd party wallets. Qortal makes it easy to get
-                started with just an encrypted file and a password. No email, no
-                phone number, no KYC, no hassle.
-              </SectionDescription>
-            </QMailDescriptionCol>
-          </SectionCol>
-          <QChatSectionCol>
-            <GroupEncryptedHeader>
-              <SectionLinesImg
-                src={"/images/LandingPage/GreenLines.png"}
-                alt=""
-                width={40}
-                height={63}
-                quality={100}
-              />
-              <SectionHeaderCol>
-                <SectionHeaderSubtitle>UNIQUENESS</SectionHeaderSubtitle>
-                <SectionHeaderTitle>
-                  What makes Qortal the best blockchain right now?
-                </SectionHeaderTitle>
-              </SectionHeaderCol>
-            </GroupEncryptedHeader>
-            <QChatDescriptionCol>
-              <SectionDescriptionTitle>
-                Truly Decentralized
-              </SectionDescriptionTitle>
-              <SectionDescription>
-                While other Web3 projects claim they are completely
-                decentralized, they are not. Qortal is decentralized from bottom
-                up, from running your own node, to building apps, nobody can
-                censor or take down any data. And it's all possible with a
-                single download!
-              </SectionDescription>
-              <SectionDownloadLink
-                href="/downloads"
-                onClick={() => {
-                  ReactGA.set({ dimension1: "Landing Page Download Button" }); // Event-level dimension
-                  ReactGA.event({
-                    category: "User",
-                    action: "Clicked Download Group Section Button",
-                    label: "Clicked Download Group Section Button"
-                  });
-                }}
-              >
-                Download{" "}
-                <RightArrow
-                  height={"20"}
-                  width="20"
-                  color={
-                    theme.palette.mode === "dark"
-                      ? "#02cbe6"
-                      : theme.palette.customBlue.main
-                  }
-                />
-              </SectionDownloadLink>
-            </QChatDescriptionCol>
-            <GroupSectionImgBox2>
-              <SectionImg
-                src={
-                  isMobile
-                    ? "/images/LandingPage/Q-ChatScreenshotMobile.webp"
-                    : "/images/LandingPage/LoginPage.png"
-                }
-                alt={
-                  isMobile
-                    ? "Qortal Group Encrypted Chat Screenshot"
-                    : "Qortal Q-Mail Screenshot"
-                }
-                width={1920}
-                height={1080}
-                quality={100}
-                onClick={() => {
-                  if (isMobile) return;
-                  setOpenModal(true);
-                  setSelectedImage("/images/LandingPage/LoginPage.png");
-                }}
-              />
-            </GroupSectionImgBox2>
-            <SectionMobileHeader>Q-Chat</SectionMobileHeader>
-            <SectionHeaderMobile>
-              <SectionHeaderCol>
-                <SectionMobileRow>
-                  <SectionHeaderSubtitle>COMMUNICATION</SectionHeaderSubtitle>
-                  <SectionLinesImg
-                    src={"/images/LandingPage/GreenStripesMobile.png"}
-                    alt=""
-                    width={217}
-                    height={10}
-                    quality={100}
-                  />
-                </SectionMobileRow>
-                <SectionHeaderTitle>Group-Encrypted Chats</SectionHeaderTitle>
-              </SectionHeaderCol>
-            </SectionHeaderMobile>
-          </QChatSectionCol>
-        </GroupSection>
-
-        {/* Q-Apps Section */}
-
-        <QAppsSection ref={topCard2Feature}>
-          <SectionHeaderMobile>
-            <SectionHeaderCol>
-              <SectionHeaderSubtitle>
-                APPS YOU CAN USE TODAY
-              </SectionHeaderSubtitle>
-              <SectionLinesImg
-                src={"/images/LandingPage/BlueStripesMobile.png"}
-                alt=""
-                width={174}
-                height={4}
-                quality={100}
-              />
-            </SectionHeaderCol>
-          </SectionHeaderMobile>
-          <QAppsSectionRow>
-            <SectionMobileHeader>Q-Apps</SectionMobileHeader>
-            <SectionCol>
-              <QAppsSectionImgBox>
-                <SectionImg
-                  src={
-                    isMobile
-                      ? "/images/LandingPage/QAppsScreenshotMobile.webp"
-                      : "/images/LandingPage/Q-Tube Video Screenshot.png"
-                  }
-                  alt="Qortal Q-Apps Screenshot"
-                  width={isMobile ? 440 : 1920}
-                  height={isMobile ? 214 : 1080}
-                  quality={100}
-                  onClick={() => {
-                    if (isMobile) return;
-                    setOpenModal(true);
-                    setSelectedImage(
-                      "/images/LandingPage/Q-Tube Video Screenshot.png"
-                    );
-                  }}
-                />
-              </QAppsSectionImgBox>
-            </SectionCol>
-            <SectionCol style={{ alignItems: "flex-start" }}>
-              <SectionHeader>
-                <SectionLinesImg
-                  src={"/images/LandingPage/BlueLines.png"}
-                  alt=""
-                  width={40}
-                  height={63}
-                  quality={100}
-                />
-                <SectionHeaderCol>
-                  <SectionHeaderSubtitle>
-                    APPS YOU CAN USE TODAY
-                  </SectionHeaderSubtitle>
-                  <SectionHeaderTitle>Q-Apps</SectionHeaderTitle>
-                </SectionHeaderCol>
-              </SectionHeader>
-              <QAppsDescriptionCol>
-                <SectionDescription>
-                  Build, share, and run apps directly on the{" "}
-                  <span style={{ fontWeight: "bold" }}>Qortal blockchain</span>.
-                  Whether it’s tools, videos, or new ideas, Q-Apps lets you go
-                  decentralized, with just a touch of JavaScript know-how. From
-                  social media to apps to video-sharing apps, the possibilities
-                  are endless!
-                </SectionDescription>
-                <SectionDownloadLink
-                  href="/downloads"
-                  onClick={() => {
-                    ReactGA.set({ dimension1: "Landing Page Download Button" }); // Event-level dimension
-                    ReactGA.event({
-                      category: "User",
-                      action: "Clicked Download Q-Apps Button",
-                      label: "Clicked Download Q-Apps Button"
-                    });
-                  }}
-                >
-                  Download{" "}
-                  <RightArrow
-                    height={"20"}
-                    width="20"
-                    color={
-                      theme.palette.mode === "dark"
-                        ? "#02cbe6"
-                        : theme.palette.customBlue.main
-                    }
-                  />
-                </SectionDownloadLink>
-              </QAppsDescriptionCol>
-            </SectionCol>
-          </QAppsSectionRow>
-          <QAppsLogosRow>
-            <QAppsLogo
-              style={{ display: isMobile ? "none" : "block" }}
-              src={
-                theme.palette.mode === "dark"
-                  ? "/images/LandingPage/Q-TradeDark.png"
-                  : "/images/LandingPage/Q-TradeLight.png"
-              }
-              alt="Q-Trade Logo"
-              width={272}
-              height={80}
-              quality={100}
-            />
-            <QAppsLogo
-              style={{ opacity: isMobile ? "0.5" : "1" }}
-              src={
-                theme.palette.mode === "dark"
-                  ? "/images/LandingPage/Q-AppsLibraryDark.png"
-                  : "/images/LandingPage/Q-AppsLibraryLight.png"
-              }
-              alt="Q-Apps Library Logo"
-              width={272}
-              height={80}
-              quality={100}
-            />
-            <QAppsLogo
-              style={{ display: isMobile ? "none" : "block" }}
-              src={
-                theme.palette.mode === "dark"
-                  ? "/images/LandingPage/Q-TubeDark.png"
-                  : "/images/LandingPage/Q-TubeLight.png"
-              }
-              alt="Q-Tube Logo"
-              width={272}
-              height={80}
-              quality={100}
-            />
-          </QAppsLogosRow>
-        </QAppsSection>
-
-        {/* Q-Trade Section */}
-
-        <QTradeSection ref={topCard3Feature}>
-          <QTradeSectionCol>
-            <SectionHeader>
-              <SectionLinesImg
-                src={"/images/LandingPage/YellowLines.png"}
-                alt=""
-                width={40}
-                height={63}
-                quality={100}
-              />
-              <SectionHeaderCol>
-                <SectionHeaderSubtitle>CRYPTO</SectionHeaderSubtitle>
-                <SectionHeaderTitle>Trading DEX Platform</SectionHeaderTitle>
-              </SectionHeaderCol>
-            </SectionHeader>
-            {isMobile ? (
-              <QORTDescriptionCol>
-                <SectionDescriptionTitle>QORT</SectionDescriptionTitle>
-                <SectionDescription>
-                  Fuel the Qortal ecosystem with QORT! Use it to trade, tip,
-                  donate, and even bet in games. It’s more than a coin; it’s
-                  your key to a decentralized world.
-                </SectionDescription>
-                <SectionDownloadLink href="/downloads">
-                  Learn more{" "}
-                  <RightArrow
-                    height={"20"}
-                    width="20"
-                    color={
-                      theme.palette.mode === "dark"
-                        ? "#02cbe6"
-                        : theme.palette.customBlue.main
-                    }
-                  />
-                </SectionDownloadLink>
-              </QORTDescriptionCol>
-            ) : (
-              <QTradeDescriptionCol>
-                <SectionDescriptionTitle>Q-Trade</SectionDescriptionTitle>
-                <SectionDescription>
-                  Trade crypto the Qortal way—peer-to-peer, secure, and no
-                  middlemen. Swap QORT and other supported coins directly on our
-                  decentralized trading DEX platform.
-                </SectionDescription>
-              </QTradeDescriptionCol>
-            )}
-          </QTradeSectionCol>
-          <SectionCol style={{ alignItems: "flex-start" }}>
-            <SectionMobileHeader>Trading DEX Platform</SectionMobileHeader>
-            <QTradeSectionImgBox>
-              <SectionImg
-                src={
-                  isMobile
-                    ? "/images/LandingPage/Q-TradeScreenshotMobile.webp"
-                    : "/images/LandingPage/Q-TradeScreenshot.webp"
-                }
-                alt="Qortal Q-Trade Screenshot"
-                width={1920}
-                height={1080}
-                quality={100}
-                onClick={() => {
-                  if (isMobile) return;
-                  setOpenModal(true);
-                  setSelectedImage(
-                    "/images/LandingPage/Q-TradeScreenshot.webp"
-                  );
-                }}
-              />
-            </QTradeSectionImgBox>
-          </SectionCol>
-          <SectionHeaderMobile>
-            <SectionHeaderCol>
-              <SectionMobileRow>
-                <SectionHeaderSubtitle>CRYPTO</SectionHeaderSubtitle>
-                <SectionLinesImg
-                  src={"/images/LandingPage/YellowStripesMobile.png"}
-                  alt=""
-                  width={217}
-                  height={10}
-                  quality={100}
-                />
-              </SectionMobileRow>
-              <SectionHeaderTitle>Trading & Currency</SectionHeaderTitle>
-            </SectionHeaderCol>
-          </SectionHeaderMobile>
-        </QTradeSection>
-
-        {/* Open Source Section */}
-
-        <OpenSourceSection ref={topCard4Feature}>
-          <SectionCol>
-            <SectionHeaderMobile>
-              <SectionHeaderCol>
-                <SectionHeaderSubtitle>FULL TRANSPARENCY</SectionHeaderSubtitle>
-                <SectionLinesImg
-                  src={"/images/LandingPage/RedStripesMobile.png"}
-                  alt=""
-                  width={141}
-                  height={4}
-                  quality={100}
-                />
-              </SectionHeaderCol>
-            </SectionHeaderMobile>
-            <SectionMobileHeader>Open Source</SectionMobileHeader>
-            <OpenSourceSectionImgBox>
-              <OpenSourceBox tabIndex={0} aria-label="Open Source Codebase">
-                <SectionCol>
-                  <SectionHeader>
-                    <SectionLinesImg
-                      src={"/images/LandingPage/RedLines.png"}
-                      alt=""
-                      width={40}
-                      height={63}
-                      quality={100}
-                    />
-                    <SectionHeaderCol>
-                      <SectionHeaderSubtitle style={{ color: "#ffffff" }}>
-                        FULL TRANSPARENCY
-                      </SectionHeaderSubtitle>
-                      <SectionHeaderTitle style={{ color: "#ffffff" }}>
-                        Open Source
-                      </SectionHeaderTitle>
-                    </SectionHeaderCol>
-                  </SectionHeader>
-                  <OpenSourceDescriptionCol>
-                    <SectionDescription style={{ color: "#ffffff" }}>
-                      Built on open-source code, Qortal ensures full
-                      transparency. No secrets, no hidden agendas. Just a
-                      blockchain you can trust.
-                    </SectionDescription>
-                    <SectionDownloadLink
-                      href="https://github.com/Qortal"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      GitHub{" "}
-                      <RightArrow
-                        height={"20"}
-                        width="20"
-                        color={
-                          theme.palette.mode === "dark"
-                            ? "#02cbe6"
-                            : theme.palette.customBlue.main
-                        }
-                      />
-                    </SectionDownloadLink>
-                  </OpenSourceDescriptionCol>
-                </SectionCol>
-              </OpenSourceBox>
-            </OpenSourceSectionImgBox>
-            <OpenSourceMobileSection>
-              <OpenSourceDescriptionCol>
-                <SectionDescription style={{ color: "#ffffff" }}>
-                  Built on open-source code, Qortal ensures full transparency.
-                  No secrets, no hidden agendas. Just a blockchain you can
-                  trust.
-                </SectionDescription>
-                <SectionDownloadLink
-                  href="https://github.com/Qortal"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  GitHub{" "}
-                  <RightArrow
-                    height={"20"}
-                    width="20"
-                    color={
-                      theme.palette.mode === "dark"
-                        ? "#02cbe6"
-                        : theme.palette.customBlue.main
-                    }
-                  />
-                </SectionDownloadLink>
-              </OpenSourceDescriptionCol>
-            </OpenSourceMobileSection>
-            <FinalTextContainer>
-              <FinalText>
-                Experience the future of decentralization with Qortal, where the
-                power of WEB3 meets the convenience of WEB2
-              </FinalText>
-            </FinalTextContainer>
-          </SectionCol>
-        </OpenSourceSection>
-      </QortalFeaturesSection>
-      {showButton && (
-        <ScrollToTopButton onClick={scrollToTop}>
-          <TopArrow
-            color={theme.palette.text.primary}
-            height={"25"}
-            width={"25"}
-          />
-        </ScrollToTopButton>
-      )}
-      {openModal && (
-        <Modal
-          images={[selectedImage]}
-          openModal={openModal}
-          onClickFunc={() => {
-            setOpenModal(false);
-            setSelectedImage("");
-          }}
-        ></Modal>
-      )}
-      {firstTimeVisitor && (
-        <CommonModal
-          openModal={firstTimeVisitor}
-          onClickFunc={() => {
-            setFirstTimeVisitor(false);
-          }}
-          customStyles={{
-            padding: 0,
-            top: "10%",
-            maxHeight: "fit-content !important",
-            height: "100% !important",
-            backgroundColor:
-              theme.palette.mode === "dark" ? "#111112" : "#D9D9D9",
-            borderRadius: "10px"
+    <>
+      <GlobalStyles
+        styles={{
+          "@media (min-width: 1194px)": {
+            html: {
+              background: pageBackground
+            },
+            body: {
+              background: pageBackground
+            },
+            "body::before": {
+              display: "none"
+            },
+            "body::-webkit-scrollbar, body::-webkit-scrollbar-track": {
+              background: pageBackground
+            }
+          }
+        }}
+      />
+      <Box
+        className={inter.className}
+        sx={{
+          position: "relative",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          width: "100%",
+          isolation: "isolate",
+          overflow: "hidden",
+          px: "60px",
+          pt: "0",
+          pb: "42px",
+          background: isDarkMode
+            ? "radial-gradient(circle at 50% 39%, rgba(37, 137, 247, 0.2), rgba(37, 137, 247, 0.07) 30%, transparent 58%), radial-gradient(circle at 50% -8%, rgba(18, 62, 117, 0.28), transparent 36%), linear-gradient(180deg, #020815 0%, #06101f 42%, #03070d 100%)"
+            : "radial-gradient(circle at 50% 39%, rgba(17, 91, 197, 0.1), rgba(17, 91, 197, 0.036) 32%, transparent 58%), radial-gradient(circle at 50% -8%, rgba(17, 91, 197, 0.1), transparent 38%), linear-gradient(180deg, #f5f5f5 0%, #eef4fb 48%, #f5f5f5 100%)",
+          "@media (min-width: 1194px)": {
+            px: "72px",
+            pb: "72px",
+            background: isDarkMode
+              ? "radial-gradient(ellipse 160% 74% at 50% 44%, rgba(12, 72, 148, 0.028) 0%, rgba(12, 72, 148, 0.012) 46%, transparent 74%), linear-gradient(180deg, #020713 0%, #020713 34%, #030812 52%, #020713 82%, #020713 100%)"
+              : "radial-gradient(ellipse 160% 74% at 50% 44%, rgba(17, 91, 197, 0.052) 0%, rgba(17, 91, 197, 0.02) 46%, transparent 74%), linear-gradient(180deg, #f5f5f5 0%, #f5f5f5 34%, #edf4fc 52%, #f5f5f5 82%, #f5f5f5 100%)"
+          },
+          "&::before": {
+            content: '""',
+            position: "absolute",
+            inset: 0,
+            pointerEvents: "none",
+            zIndex: 0,
+            backgroundImage: isDarkMode
+              ? "linear-gradient(rgba(132, 175, 240, 0.014) 1px, transparent 1px), linear-gradient(90deg, rgba(132, 175, 240, 0.012) 1px, transparent 1px), radial-gradient(circle at center, transparent 0%, transparent 55%, rgba(0, 0, 0, 0.46) 100%)"
+              : "linear-gradient(rgba(17, 91, 197, 0.026) 1px, transparent 1px), linear-gradient(90deg, rgba(17, 91, 197, 0.022) 1px, transparent 1px), radial-gradient(circle at center, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0) 60%, rgba(17, 91, 197, 0.045) 100%)",
+            backgroundSize: "58px 58px, 58px 58px, 100% 100%",
+            opacity: isDarkMode ? 0.52 : 0.38,
+            maskImage:
+              "radial-gradient(circle at 50% 44%, rgba(0,0,0,0.52), rgba(0,0,0,0.18) 58%, transparent 86%)",
+            WebkitMaskImage:
+              "radial-gradient(circle at 50% 44%, rgba(0,0,0,0.52), rgba(0,0,0,0.18) 58%, transparent 86%)",
+            "@media (min-width: 1194px)": {
+              opacity: 0.34,
+              maskImage:
+                "linear-gradient(180deg, transparent 0px, transparent 118px, rgba(0, 0, 0, 0.2) 210px, rgba(0, 0, 0, 0.48) 420px, rgba(0, 0, 0, 0.14) 64%, rgba(0, 0, 0, 0.04) 74%, transparent 84%)",
+              WebkitMaskImage:
+                "linear-gradient(180deg, transparent 0px, transparent 118px, rgba(0, 0, 0, 0.2) 210px, rgba(0, 0, 0, 0.48) 420px, rgba(0, 0, 0, 0.14) 64%, rgba(0, 0, 0, 0.04) 74%, transparent 84%)"
+            }
+          }
+        }}
+      >
+        <Box
+          component="section"
+          aria-labelledby="hub-preview-title"
+          sx={{
+            position: "relative",
+            zIndex: 1,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            width: "100%",
+            maxWidth: "1040px",
+            mx: "auto",
+            mb: "10px",
+            textAlign: "center",
+            "@media (min-width: 1194px)": {
+              minHeight: "256px",
+              justifyContent: "center",
+              maxWidth: "1180px",
+              mb: "18px"
+            }
           }}
         >
-          <EbookPromoContainer>
-            <BookSVG
-              color={theme.palette.text.primary}
-              height={"79"}
-              width={"98"}
-            />
-            <EbookPromoTextCol>
-              <EbookPromoTitle>
-                DOWNLOAD OUR{" "}
-                <span style={{ color: theme.palette.customBlue.main }}>
-                  FREE
-                </span>{" "}
-                EBOOK!
-              </EbookPromoTitle>
-              <EbookPromoSubTitle>
-                Learn how Qortal is leveraging the power of blockchain
-                technology to revolutionize many industries on the normal
-                internet.
-              </EbookPromoSubTitle>
-            </EbookPromoTextCol>
-            <EbookPromoButton
-              onClick={() => {
-                ReactGA.event({
-                  category: "User",
-                  action: "Clicked Download Ebook Button on Homepage Modal",
-                  label: "Clicked Download Ebook Button on Homepage Modal"
-                });
-                router.push("/ebook");
+          <Typography
+            component="p"
+            sx={{
+              mb: "10px",
+              color: "#37a8ff",
+              fontSize: "0.72rem",
+              fontWeight: 800,
+              letterSpacing: "0.26em",
+              textTransform: "uppercase",
+              "@media (min-width: 1194px)": {
+                mb: "22px",
+                fontSize: "0.86rem",
+                letterSpacing: "0.32em"
+              }
+            }}
+          >
+            QORTAL HUB PREVIEW
+          </Typography>
+          <Typography
+            id="hub-preview-title"
+            component="h1"
+            className={segoeUIHubHeadline.className}
+            sx={{
+              m: 0,
+              color: heroTextColor,
+              fontSize: "3.18rem",
+              fontWeight: 800,
+              lineHeight: 0.98,
+              letterSpacing: 0,
+              textShadow: isDarkMode
+                ? "0 18px 46px rgba(0, 0, 0, 0.36)"
+                : "0 14px 34px rgba(17, 91, 197, 0.08)",
+              "@media (min-width: 1194px)": {
+                position: "relative",
+                display: "inline-block",
+                fontSize: "5.05rem",
+                fontWeight: 450,
+                lineHeight: 0.96,
+                color: "transparent",
+                backgroundImage: isDarkMode
+                  ? "linear-gradient(94deg, #ffffff 0%, #f9fcff 38%, #eaf5ff 56%, #bdd9ff 74%, #7f9eff 90%, #9a63ff 100%)"
+                  : "linear-gradient(94deg, #07111f 0%, #102849 42%, #115bc5 78%, #167cf0 100%)",
+                backgroundClip: "text",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                textRendering: "geometricPrecision",
+                WebkitFontSmoothing: "antialiased",
+                MozOsxFontSmoothing: "grayscale",
+                textShadow: isDarkMode
+                  ? "0 20px 52px rgba(0, 0, 0, 0.34), 0 0 24px rgba(91, 157, 255, 0.12)"
+                  : "0 18px 48px rgba(17, 91, 197, 0.09)",
+                "& .headline-shine-text": {
+                  position: "relative",
+                  display: "inline-block",
+                  color: "transparent",
+                  backgroundImage: isDarkMode
+                    ? "linear-gradient(94deg, #ffffff 0%, #f9fcff 46%, #eaf7ff 100%)"
+                    : "linear-gradient(94deg, #07111f 0%, #1c365d 100%)",
+                  backgroundClip: "text",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                  isolation: "isolate",
+                  textShadow: isDarkMode
+                    ? "-0.024em -0.03em 0.154em rgba(78, 174, 255, 0.11), 0 -0.016em 0.055em rgba(213, 244, 255, 0.07)"
+                    : "none",
+                  "&::before": {
+                    content: '"This is"',
+                    position: "absolute",
+                    inset: 0,
+                    pointerEvents: "none",
+                    color: "transparent",
+                    backgroundImage:
+                      "radial-gradient(ellipse 0.9em 0.26em at 10% 0%, rgba(255, 255, 255, 0.58) 0%, rgba(221, 246, 255, 0.36) 38%, rgba(139, 207, 255, 0.12) 70%, transparent 94%), radial-gradient(ellipse 1.42em 0.32em at 25% 0%, rgba(231, 249, 255, 0.36) 0%, rgba(160, 221, 255, 0.14) 48%, transparent 92%), linear-gradient(180deg, rgba(255, 255, 255, 0.22) 0%, rgba(218, 242, 255, 0.11) 24%, rgba(139, 207, 255, 0.03) 44%, transparent 72%)",
+                    backgroundClip: "text",
+                    WebkitBackgroundClip: "text",
+                    WebkitTextFillColor: "transparent",
+                    filter: "none",
+                    opacity: isDarkMode ? 0.78 : 0,
+                    maskImage:
+                      "radial-gradient(ellipse 118% 76% at 14% -8%, rgba(0, 0, 0, 0.88) 0%, rgba(0, 0, 0, 0.72) 34%, rgba(0, 0, 0, 0.42) 58%, rgba(0, 0, 0, 0.16) 78%, rgba(0, 0, 0, 0.04) 90%, transparent 100%)",
+                    WebkitMaskImage:
+                      "radial-gradient(ellipse 118% 76% at 14% -8%, rgba(0, 0, 0, 0.88) 0%, rgba(0, 0, 0, 0.72) 34%, rgba(0, 0, 0, 0.42) 58%, rgba(0, 0, 0, 0.16) 78%, rgba(0, 0, 0, 0.04) 90%, transparent 100%)"
+                  },
+                  "&::after": {
+                    content: '"This is"',
+                    position: "absolute",
+                    inset: 0,
+                    pointerEvents: "none",
+                    color: "rgba(69, 174, 255, 0.46)",
+                    WebkitTextFillColor: "rgba(69, 174, 255, 0.46)",
+                    filter: "blur(11px)",
+                    opacity: isDarkMode ? 0.78 : 0,
+                    transform: "translate(-0.03em, -0.028em)",
+                    mixBlendMode: "screen",
+                    maskImage:
+                      "radial-gradient(ellipse 98% 72% at 6% -2%, rgba(0, 0, 0, 0.84) 0%, rgba(0, 0, 0, 0.68) 34%, rgba(0, 0, 0, 0.42) 56%, rgba(0, 0, 0, 0.18) 74%, rgba(0, 0, 0, 0.05) 88%, transparent 100%)",
+                    WebkitMaskImage:
+                      "radial-gradient(ellipse 98% 72% at 6% -2%, rgba(0, 0, 0, 0.84) 0%, rgba(0, 0, 0, 0.68) 34%, rgba(0, 0, 0, 0.42) 56%, rgba(0, 0, 0, 0.18) 74%, rgba(0, 0, 0, 0.05) 88%, transparent 100%)"
+                  }
+                }
+              }
+            }}
+          >
+            <Box component="span" className="headline-shine-text">
+              This is
+            </Box>{" "}
+            Qortal Hub
+          </Typography>
+          <Typography
+            component="p"
+            sx={{
+              mt: "8px",
+              color: heroMutedTextColor,
+              fontSize: "1.02rem",
+              fontWeight: 400,
+              lineHeight: 1.38,
+              letterSpacing: 0,
+              "@media (min-width: 1194px)": {
+                mt: "22px",
+                fontSize: "1.45rem",
+                lineHeight: 1.36
+              }
+            }}
+          >
+            Your gateway to a decentralized internet.
+          </Typography>
+          <Box
+            sx={{
+              mt: "6px",
+              display: "inline-flex",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: "8px",
+              color: heroHelperTextColor,
+              "@media (min-width: 1194px)": {
+                mt: "24px",
+                gap: "12px"
+              }
+            }}
+          >
+            <Box
+              component="span"
+              sx={{
+                width: "18px",
+                height: "18px",
+                display: "inline-flex",
+                alignItems: "center",
+                justifyContent: "center",
+                borderRadius: "5px",
+                background: isDarkMode
+                  ? "rgba(245, 248, 255, 0.12)"
+                  : "rgba(17, 91, 197, 0.08)",
+                border: isDarkMode
+                  ? "1px solid rgba(255, 255, 255, 0.12)"
+                  : "1px solid rgba(17, 91, 197, 0.12)",
+                color: isDarkMode ? "#9ec8ff" : "#115bc5",
+                "@media (min-width: 1194px)": {
+                  width: "28px",
+                  height: "28px",
+                  borderRadius: "8px"
+                }
               }}
             >
-              <DownloadSVG
-                color={theme.palette.text.primary}
-                height={"14"}
-                width={"14"}
+              <AdsClickIcon
+                sx={{
+                  fontSize: "12px",
+                  "@media (min-width: 1194px)": {
+                    fontSize: "17px"
+                  }
+                }}
               />
-              DOWNLOAD HERE
-            </EbookPromoButton>
-          </EbookPromoContainer>
-        </CommonModal>
-      )}
-    </Container>
+            </Box>
+            <Typography
+              component="span"
+              sx={{
+                color: heroHelperTextColor,
+                fontSize: "0.88rem",
+                fontWeight: 400,
+                lineHeight: 1.5,
+                letterSpacing: 0,
+                "@media (min-width: 1194px)": {
+                  fontSize: "1.18rem",
+                  lineHeight: 1.42
+                }
+              }}
+            >
+              Hover any card to understand how Qortal works.
+            </Typography>
+          </Box>
+        </Box>
+        <Box
+          component="section"
+          aria-label="Interactive Qortal Hub preview"
+          sx={{
+            position: "relative",
+            zIndex: 1,
+            width: "100%",
+            maxWidth: "1288px",
+            mx: "auto",
+            display: "flex",
+            justifyContent: "center",
+            "&::before": {
+              content: '""',
+              position: "absolute",
+              top: "-70px",
+              left: "50%",
+              width: "1060px",
+              height: "386px",
+              pointerEvents: "none",
+              transform: "translateX(-50%)",
+              borderRadius: "999px",
+              background:
+                "radial-gradient(circle, rgba(47, 143, 245, 0.24), rgba(47, 143, 245, 0.085) 42%, transparent 73%)",
+              filter: "blur(12px)",
+              zIndex: 0,
+              "@media (min-width: 1194px)": {
+                display: "none"
+              }
+            },
+            "&::after": {
+              content: '""',
+              position: "absolute",
+              left: "50%",
+              bottom: "-28px",
+              width: "900px",
+              height: "76px",
+              pointerEvents: "none",
+              transform: "translateX(-50%)",
+              borderRadius: "50%",
+              background: "rgba(0, 0, 0, 0.42)",
+              filter: "blur(30px)",
+              zIndex: 0,
+              "@media (min-width: 1194px)": {
+                display: "none"
+              }
+            },
+            "& #hub-preview-root": {
+              position: "relative",
+              zIndex: 1,
+              isolation: "isolate"
+            },
+            "& #hub-preview-root::before, & #hub-preview-root::after": {
+              content: '""',
+              position: "absolute",
+              display: "none",
+              pointerEvents: "none"
+            },
+            "@media (min-width: 1194px)": {
+              maxWidth: "1440px",
+              "&::before": {
+                display: "block",
+                top: "-320px",
+                left: "50%",
+                width: "240vw",
+                maxWidth: "4200px",
+                height: "1480px",
+                transform: "translateX(-52%)",
+                borderRadius: 0,
+                background:
+                  "radial-gradient(ellipse 940px 1160px at calc(50% - 820px) 62%, rgba(12, 72, 148, 0.13) 0%, rgba(12, 72, 148, 0.068) 36%, rgba(12, 72, 148, 0.026) 60%, transparent 80%), radial-gradient(ellipse 800px 1040px at calc(50% + 820px) 58%, rgba(12, 72, 148, 0.105) 0%, rgba(12, 72, 148, 0.055) 40%, rgba(12, 72, 148, 0.02) 64%, transparent 82%), radial-gradient(ellipse 1480px 620px at 52% 54%, rgba(12, 72, 148, 0.04) 0%, rgba(12, 72, 148, 0.018) 48%, transparent 78%)",
+                filter: "blur(132px)",
+                opacity: 0.78,
+                zIndex: 0,
+                maskImage:
+                  "linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.72) 16%, rgba(0, 0, 0, 0.82) 48%, rgba(0, 0, 0, 0.28) 72%, transparent 100%)",
+                WebkitMaskImage:
+                  "linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.72) 16%, rgba(0, 0, 0, 0.82) 48%, rgba(0, 0, 0, 0.28) 72%, transparent 100%)"
+              },
+              "&::after": {
+                display: "block",
+                top: "-180px",
+                left: "50%",
+                bottom: "auto",
+                width: "210vw",
+                maxWidth: "3600px",
+                height: "1080px",
+                transform: "translateX(-46%)",
+                borderRadius: 0,
+                background:
+                  "radial-gradient(ellipse 840px 820px at 15% 62%, rgba(12, 72, 148, 0.06) 0%, rgba(12, 72, 148, 0.028) 46%, transparent 80%), radial-gradient(ellipse 720px 780px at 88% 56%, rgba(12, 72, 148, 0.052) 0%, rgba(12, 72, 148, 0.024) 48%, transparent 82%)",
+                filter: "blur(180px)",
+                opacity: 0.54,
+                zIndex: 0,
+                maskImage:
+                  "linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.62) 18%, rgba(0, 0, 0, 0.74) 50%, rgba(0, 0, 0, 0.22) 74%, transparent 100%)",
+                WebkitMaskImage:
+                  "linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.62) 18%, rgba(0, 0, 0, 0.74) 50%, rgba(0, 0, 0, 0.22) 74%, transparent 100%)"
+              },
+              "&& .hub-shell": {
+                boxShadow:
+                  "inset 0 1px 0 rgba(255, 255, 255, 0.05), inset 0 1px 0 rgba(124, 195, 255, 0.12), 0 46px 160px rgba(0, 0, 0, 0.42), 0 26px 210px rgba(0, 0, 0, 0.28), -68px 0 230px rgba(12, 72, 148, 0.05), 58px 0 210px rgba(12, 72, 148, 0.042), 0 -18px 130px rgba(12, 72, 148, 0.075), 0 0 0 1px rgba(0, 0, 0, 0.24)"
+              },
+              "&& .hub-shell::after": {
+                content: '""',
+                position: "absolute",
+                inset: "-18px -58px -86px",
+                zIndex: -1,
+                pointerEvents: "none",
+                borderRadius: "34px",
+                background:
+                  "radial-gradient(ellipse 82% 28% at 50% 104%, rgba(0, 0, 0, 0.28) 0%, rgba(0, 0, 0, 0.16) 46%, transparent 78%), radial-gradient(ellipse 102% 56% at 50% 46%, rgba(12, 72, 148, 0.055) 0%, rgba(12, 72, 148, 0.022) 48%, transparent 78%)",
+                filter: "blur(34px)",
+                opacity: 0.82
+              },
+              "&& .hub-shell::before": {
+                borderTop: "1px solid rgba(122, 172, 224, 0.34)",
+                borderRight: "1px solid rgba(122, 172, 224, 0.085)",
+                borderLeft: "1px solid rgba(122, 172, 224, 0.085)",
+                boxShadow:
+                  "0 -2px 42px rgba(12, 72, 148, 0.17), inset 0 1px 10px rgba(12, 72, 148, 0.045)"
+              },
+              "&& .hub-card--apps": {
+                animation: "none",
+                borderColor: "rgba(132, 175, 240, 0.17)",
+                boxShadow:
+                  "inset 0 1px 0 rgba(255, 255, 255, 0.055), 0 14px 36px rgba(0, 0, 0, 0.22), 0 0 28px rgba(12, 72, 148, 0.04)"
+              },
+              "&& .hub-card--apps::before": {
+                display: "none"
+              },
+              "&& .hub-card--apps::after": {
+                display: "none"
+              },
+              "&& .hub-card--apps > .edge-light": {
+                display: "none"
+              },
+              "&& .hub-card--apps:hover .hub-card__body::before, && .hub-card--apps.is-active .hub-card__body::before": {
+                opacity: 0
+              },
+              "& #hub-preview-root::before": {
+                display: "block",
+                top: "-122px",
+                right: "-16%",
+                left: "-16%",
+                height: "238px",
+                zIndex: -1,
+                borderRadius: "999px",
+                background:
+                  "radial-gradient(ellipse at 50% 76%, rgba(12, 72, 148, 0.32) 0%, rgba(12, 72, 148, 0.18) 34%, rgba(12, 72, 148, 0.072) 62%, rgba(12, 72, 148, 0.022) 82%, transparent 96%)",
+                filter: "blur(82px)",
+                opacity: 0.7,
+                maskImage:
+                  "radial-gradient(ellipse 90% 70% at 50% 68%, rgba(0, 0, 0, 0.82) 0%, rgba(0, 0, 0, 0.5) 48%, rgba(0, 0, 0, 0.16) 76%, transparent 100%)",
+                WebkitMaskImage:
+                  "radial-gradient(ellipse 90% 70% at 50% 68%, rgba(0, 0, 0, 0.82) 0%, rgba(0, 0, 0, 0.5) 48%, rgba(0, 0, 0, 0.16) 76%, transparent 100%)"
+              },
+              "& #hub-preview-root::after": {
+                display: "block",
+                top: "-500px",
+                right: "-1280px",
+                bottom: "-540px",
+                left: "-1380px",
+                zIndex: -2,
+                borderRadius: 0,
+                background:
+                  "radial-gradient(ellipse 1320px 1780px at 24% 58%, rgba(12, 72, 148, 0.09) 0%, rgba(12, 72, 148, 0.048) 44%, rgba(12, 72, 148, 0.016) 68%, transparent 86%), radial-gradient(ellipse 1180px 1680px at 82% 54%, rgba(12, 72, 148, 0.078) 0%, rgba(12, 72, 148, 0.04) 46%, rgba(12, 72, 148, 0.014) 70%, transparent 88%), radial-gradient(ellipse 1680px 840px at 48% 54%, rgba(12, 72, 148, 0.026) 0%, transparent 78%)",
+                filter: "blur(190px)",
+                opacity: 0.5,
+                maskImage:
+                  "linear-gradient(180deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.78) 42%, rgba(0, 0, 0, 0.2) 70%, transparent 100%)",
+                WebkitMaskImage:
+                  "linear-gradient(180deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.78) 42%, rgba(0, 0, 0, 0.2) 70%, transparent 100%)"
+              }
+            },
+            "& .hub-shell": {
+              position: "relative",
+              zIndex: 1,
+              borderColor: "rgba(132, 175, 240, 0.14)",
+              boxShadow:
+                "inset 0 1px 0 rgba(255, 255, 255, 0.06), inset 0 1px 0 rgba(124, 195, 255, 0.22), 0 34px 106px rgba(0, 0, 0, 0.56), -28px 0 88px rgba(47, 143, 245, 0.14), 28px 0 88px rgba(47, 143, 245, 0.14), 0 -8px 48px rgba(84, 169, 255, 0.24), 0 0 0 1px rgba(0, 0, 0, 0.24)"
+            },
+            "& .hub-shell::before": {
+              content: '""',
+              position: "absolute",
+              inset: "-1px",
+              zIndex: 2,
+              pointerEvents: "none",
+              borderRadius: "inherit",
+              borderTop: "1px solid rgba(126, 193, 255, 0.42)",
+              borderRight: "1px solid rgba(126, 193, 255, 0.11)",
+              borderLeft: "1px solid rgba(126, 193, 255, 0.11)",
+              boxShadow:
+                "0 -2px 34px rgba(72, 159, 255, 0.26), inset 0 1px 14px rgba(126, 193, 255, 0.105)"
+            }
+          }}
+        >
+          <Demo />
+        </Box>
+        <Box
+          component="section"
+          aria-label="Download Qortal Hub"
+          sx={{
+            position: "relative",
+            zIndex: 1,
+            display: "none",
+            width: "100%",
+            maxWidth: "1344px",
+            mx: "auto",
+            mt: "28px",
+            "@media (min-width: 1194px)": {
+              display: "block"
+            }
+          }}
+        >
+          <Box
+            sx={{
+              position: "relative",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              gap: "30px",
+              minHeight: "102px",
+              px: "46px",
+              py: "24px",
+              overflow: "hidden",
+              border: isDarkMode
+                ? "1px solid rgba(132, 175, 240, 0.14)"
+                : "1px solid rgba(17, 91, 197, 0.12)",
+              borderRadius: "8px",
+              background: isDarkMode
+                ? "linear-gradient(180deg, rgba(11, 19, 34, 0.88), rgba(5, 11, 22, 0.94))"
+                : "linear-gradient(180deg, rgba(255, 255, 255, 0.78), rgba(239, 245, 252, 0.86))",
+              boxShadow: isDarkMode
+                ? "inset 0 1px 0 rgba(255, 255, 255, 0.055), inset 0 -1px 0 rgba(12, 72, 148, 0.08), 0 24px 86px rgba(0, 0, 0, 0.22), 0 -14px 72px rgba(12, 72, 148, 0.035)"
+                : "inset 0 1px 0 rgba(255, 255, 255, 0.72), 0 22px 64px rgba(17, 91, 197, 0.08)",
+              "&::before": {
+                content: '""',
+                position: "absolute",
+                inset: "0",
+                pointerEvents: "none",
+                background: isDarkMode
+                  ? "radial-gradient(ellipse 36% 130% at 2% 50%, rgba(12, 72, 148, 0.14), transparent 70%), radial-gradient(ellipse 34% 120% at 94% 48%, rgba(12, 72, 148, 0.09), transparent 72%)"
+                  : "radial-gradient(ellipse 36% 130% at 2% 50%, rgba(17, 91, 197, 0.08), transparent 70%), radial-gradient(ellipse 34% 120% at 94% 48%, rgba(17, 91, 197, 0.055), transparent 72%)",
+                opacity: isDarkMode ? 0.68 : 0.54
+              },
+              "&::after": {
+                content: '""',
+                position: "absolute",
+                top: 0,
+                right: "18px",
+                left: "18px",
+                height: "1px",
+                pointerEvents: "none",
+                background: isDarkMode
+                  ? "linear-gradient(90deg, transparent, rgba(132, 175, 240, 0.2) 18%, rgba(132, 175, 240, 0.14) 58%, transparent)"
+                  : "linear-gradient(90deg, transparent, rgba(17, 91, 197, 0.14) 18%, rgba(17, 91, 197, 0.09) 58%, transparent)"
+              }
+            }}
+          >
+            <Box
+              sx={{
+                position: "relative",
+                zIndex: 1,
+                display: "flex",
+                alignItems: "center",
+                gap: "12px",
+                minWidth: 0
+              }}
+            >
+              <Box
+                aria-hidden="true"
+                sx={{
+                  width: "50px",
+                  height: "50px",
+                  flex: "0 0 auto",
+                  display: "grid",
+                  placeItems: "center",
+                  borderRadius: "50%",
+                  color: "#35a8ff",
+                  background: isDarkMode
+                    ? "radial-gradient(circle at 48% 45%, rgba(57, 168, 255, 0.16), rgba(12, 72, 148, 0.08) 64%, rgba(6, 12, 24, 0.92) 100%)"
+                    : "radial-gradient(circle at 48% 45%, rgba(57, 168, 255, 0.12), rgba(17, 91, 197, 0.055) 68%, rgba(255, 255, 255, 0.82) 100%)",
+                  border: isDarkMode
+                    ? "1px solid rgba(95, 151, 255, 0.34)"
+                    : "1px solid rgba(17, 91, 197, 0.2)",
+                  boxShadow: isDarkMode
+                    ? "inset 0 1px 0 rgba(255, 255, 255, 0.07), 0 0 22px rgba(12, 72, 148, 0.18)"
+                    : "inset 0 1px 0 rgba(255, 255, 255, 0.74), 0 0 18px rgba(17, 91, 197, 0.08)"
+                }}
+              >
+                <QortalSVG color="currentColor" width="25" height="27" />
+              </Box>
+              <Box sx={{ minWidth: 0 }}>
+                <Typography
+                  component="h2"
+                  sx={{
+                    m: 0,
+                    color: isDarkMode ? "#f5f9ff" : "#07111f",
+                    fontSize: "1rem",
+                    fontWeight: 800,
+                    lineHeight: 1.24,
+                    letterSpacing: 0
+                  }}
+                >
+                  Ready to experience the full power of Qortal?
+                </Typography>
+                <Typography
+                  sx={{
+                    mt: "4px",
+                    color: isDarkMode
+                      ? "rgba(218, 229, 243, 0.64)"
+                      : "rgba(8, 17, 34, 0.58)",
+                    fontSize: "0.86rem",
+                    fontWeight: 500,
+                    lineHeight: 1.35,
+                    letterSpacing: 0
+                  }}
+                >
+                  Download Qortal Hub and start your journey.
+                </Typography>
+              </Box>
+            </Box>
+            <Box
+              component={Link}
+              href="/downloads"
+              sx={{
+                position: "relative",
+                zIndex: 1,
+                flex: "0 0 auto",
+                display: "inline-flex",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: "8px",
+                minWidth: "168px",
+                height: "38px",
+                px: "16px",
+                borderRadius: "7px",
+                color: "#ffffff",
+                background: "linear-gradient(180deg, #2088f6 0%, #136fd8 100%)",
+                border: "1px solid rgba(137, 197, 255, 0.28)",
+                boxShadow:
+                  "0 10px 20px rgba(19, 118, 237, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.2)",
+                textDecoration: "none",
+                fontSize: "0.8rem",
+                fontWeight: 800,
+                lineHeight: 1,
+                letterSpacing: 0,
+                transition:
+                  "transform 150ms ease, box-shadow 150ms ease, filter 150ms ease, border-color 150ms ease",
+                "&:focus-visible": {
+                  outline: "1px solid rgba(245, 248, 255, 0.72)",
+                  outlineOffset: "4px"
+                },
+                "@media (hover: hover) and (pointer: fine)": {
+                  "&:hover": {
+                    transform: "translateY(-1px)",
+                    filter: "brightness(1.04)",
+                    borderColor: "rgba(245, 248, 255, 0.58)",
+                    boxShadow:
+                      "0 16px 30px rgba(19, 118, 237, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.28)"
+                  }
+                }
+              }}
+            >
+              Download Qortal Hub
+              <FileDownloadRoundedIcon sx={{ fontSize: "18px" }} />
+            </Box>
+          </Box>
+        </Box>
+      </Box>
+    </>
   );
 };
 

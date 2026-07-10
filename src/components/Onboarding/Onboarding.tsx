@@ -255,7 +255,11 @@ const Onboarding = () => {
           alignItems: "center",
           justifyContent: "center",
           p: 2,
-          width: "100%"
+          width: "100%",
+          "@media (min-width: 1194px)": {
+            bgcolor:
+              theme.palette.mode === "dark" ? "#020713" : "background.default"
+          }
         }}
       >
         <Paper

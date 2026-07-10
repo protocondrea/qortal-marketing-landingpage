@@ -8,10 +8,21 @@ const commonThemeOptions = createTheme({
         ":root": {
           padding: "0px",
           margin: "0px",
-          boxSizing: "border-box"
+          boxSizing: "border-box",
+          minHeight: "100%"
         },
         html: {
-          scrollBehavior: "smooth"
+          minHeight: "100%",
+          scrollBehavior: "smooth",
+          "@media (min-width: 1194px)": {
+            scrollbarGutter: "stable"
+          }
+        },
+        body: {
+          minHeight: "100%"
+        },
+        "body > div:first-of-type": {
+          minHeight: "100%"
         }
       }
     },
@@ -105,6 +116,22 @@ const lightTheme = createTheme({
   components: {
     MuiCssBaseline: {
       styleOverrides: {
+        ":root": {
+          minHeight: "100%"
+        },
+        html: {
+          minHeight: "100%",
+          scrollBehavior: "smooth",
+          "@media (min-width: 1194px)": {
+            scrollbarGutter: "stable"
+          }
+        },
+        body: {
+          minHeight: "100%"
+        },
+        "body > div:first-of-type": {
+          minHeight: "100%"
+        },
         "body::-webkit-scrollbar-track": {
           backgroundColor: "transparent"
         },
@@ -193,6 +220,22 @@ const darkTheme = createTheme({
   components: {
     MuiCssBaseline: {
       styleOverrides: {
+        ":root": {
+          minHeight: "100%"
+        },
+        html: {
+          minHeight: "100%",
+          scrollBehavior: "smooth",
+          "@media (min-width: 1194px)": {
+            scrollbarGutter: "stable"
+          }
+        },
+        body: {
+          minHeight: "100%"
+        },
+        "body > div:first-of-type": {
+          minHeight: "100%"
+        },
         "body::-webkit-scrollbar-track": {
           backgroundColor: "transparent"
         },

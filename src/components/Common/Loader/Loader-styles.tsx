@@ -21,7 +21,10 @@ export const LoadingContainer = styled(Box)({
   gap: "8px",
   flexDirection: "row",
   alignItems: "center",
-  marginTop: "50px"
+  justifyContent: "center",
+  width: "100%",
+  minHeight: "min(360px, 60vh)",
+  marginTop: 0
 });
 
 export const LoadingQortalLogo = styled(Box)<LoadingProps>(

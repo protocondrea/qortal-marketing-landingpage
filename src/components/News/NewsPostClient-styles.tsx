@@ -43,7 +43,7 @@ export const BackToNewsButton = styled(Button)(({ theme }) => ({
   "&:hover": {
     cursor: "pointer",
     backgroundColor: theme.palette.mode === "dark" ? "#D2D2D2" : "#61757F",
-    filter: "brightness(0.85)",
+    filter: "brightness(0.85)"
   }
 }));
 
@@ -92,8 +92,17 @@ export const NewsPostBody = styled(Box)(({ theme }) => ({
   "& p": {
     lineHeight: "1.6"
   },
+  "& a": {
+    color: "#39a8ff",
+    textDecoration: "underline",
+    textUnderlineOffset: "3px",
+    transition: "color 160ms ease"
+  },
+  "& a:hover, & a:focus-visible": {
+    color: "#ffffff"
+  },
   "& img": {
     marginTop: "10px !important",
-    maxWidth: "100%",
-  },
+    maxWidth: "100%"
+  }
 }));

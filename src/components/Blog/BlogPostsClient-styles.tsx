@@ -271,8 +271,30 @@ export const BlogPostCard = styled(Box)(({ theme }) => ({
   width: "368px",
   height: "382px",
   margin: "0 auto",
-  ":hover": {
-    cursor: "pointer"
+  borderRadius: "10px",
+  cursor: "pointer",
+  boxShadow: "0 0 0 1px rgba(255, 255, 255, 0)",
+  transition:
+    "transform 180ms ease, background-color 180ms ease, box-shadow 180ms ease",
+  "&:focus-visible": {
+    outline: "1px solid rgba(0, 136, 204, 0.65)",
+    outlineOffset: "6px"
+  },
+  "@media (hover: hover) and (pointer: fine)": {
+    "&:hover": {
+      transform: "translateY(-2px)",
+      backgroundColor:
+        theme.palette.mode === "light"
+          ? "rgba(2, 7, 19, 0.025)"
+          : "rgba(255, 255, 255, 0.018)",
+      boxShadow:
+        theme.palette.mode === "light"
+          ? "0 12px 28px rgba(2, 7, 19, 0.1), 0 0 0 1px rgba(0, 136, 204, 0.16)"
+          : "0 16px 38px rgba(0, 0, 0, 0.26), 0 0 0 1px rgba(77, 166, 255, 0.14)"
+    },
+    "&:hover img": {
+      filter: "brightness(1.04)"
+    }
   },
   [theme.breakpoints.down("sm")]: {
     width: "330px"
@@ -290,10 +312,13 @@ export const BlogSubContainer = styled(Box)({
 });
 
 export const BlogPostImage = styled(Image)({
+  display: "block",
   width: "328px",
   height: "220px",
+  margin: "0 auto",
   objectFit: "contain",
-  userSelect: "none"
+  userSelect: "none",
+  transition: "filter 180ms ease"
 });
 
 export const BlogPostTitle = styled(Typography)({

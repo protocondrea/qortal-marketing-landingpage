@@ -1,64 +1,62 @@
 "use client";
-import { useMediaQuery, useTheme } from "@mui/material";
-import { FooterContainer, FooterLink, FooterRow } from "./Footer-styles";
+import { useMediaQuery } from "@mui/material";
+import {
+  FooterContainer,
+  FooterInner,
+  FooterLink,
+  FooterRow
+} from "./Footer-styles";
 import { usePathname } from "next/navigation";
 import { Socials } from "../../Common/Socials/Socials";
 
+const footerLinks = [
+  { href: "/support", label: "Support" },
+  { href: "/creators", label: "For Creators" },
+  { href: "/devs", label: "For Developers" },
+  { href: "/donate", label: "Donate" },
+  { href: "/links", label: "Links" },
+  { href: "/privacy", label: "Privacy Policy" }
+];
+
 export const Footer = () => {
   const location = usePathname();
-  const theme = useTheme();
   const isMobile = useMediaQuery("(max-width: 1086px)");
-
-  if (
-    (location.includes("/wiki") && isMobile) ||
+  const isFooterSuppressedRoute =
     location.includes("/links") ||
     location.includes("/other-web3") ||
     location.includes("/webinar") ||
-    location.includes("/onboarding")
-  ) {
-    return null; // Don't show footer on mobile wiki pages, links page, or webinar page
+    location.includes("/onboarding");
+
+  if ((location.includes("/wiki") && isMobile) || (isMobile && isFooterSuppressedRoute)) {
+    return null;
   } else
     return (
-      <FooterContainer style={{ paddingBottom: location === "/" ? "40px" : 0 }}>
-        <Socials />
-        <FooterRow>
-          <FooterLink
-            href={"/support"}
-            className={location === "/support" ? "active" : ""}
-          >
-            Support
-          </FooterLink>
-          <FooterLink
-            href={"/creators"}
-            className={location === "/creators" ? "active" : ""}
-          >
-            For Creators
-          </FooterLink>
-          <FooterLink
-            href={"/devs"}
-            className={location === "/devs" ? "active" : ""}
-          >
-            For Developers
-          </FooterLink>
-          <FooterLink
-            href={"/donate"}
-            className={location === "/donate" ? "active" : ""}
-          >
-            Donate
-          </FooterLink>
-          <FooterLink
-            href={"/links"}
-            className={location === "/links" ? "active" : ""}
-          >
-            Links
-          </FooterLink>
-          <FooterLink
-            href={"/privacy"}
-            className={location === "/privacy" ? "active" : ""}
-          >
-            Privacy Policy
-          </FooterLink>
-        </FooterRow>
+      <FooterContainer
+        component="footer"
+        className="site-footer"
+      >
+        <FooterInner
+          className="site-footer-inner"
+          sx={{
+            pb: location === "/" ? "40px" : 0,
+            "@media (min-width: 1194px)": {
+              pb: "40px"
+            }
+          }}
+        >
+          <Socials />
+          <FooterRow>
+            {footerLinks.map(({ href, label }) => (
+              <FooterLink
+                key={href}
+                href={href}
+                className={location === href ? "active" : ""}
+              >
+                {label}
+              </FooterLink>
+            ))}
+          </FooterRow>
+        </FooterInner>
       </FooterContainer>
     );
 };

@@ -41,6 +41,7 @@ const NewsPostsClient: React.FC<NewsPostsClientProps> = ({ news }) => {
               <NewsCard
                 key={item.identifier}
                 aria-label="Visit this Qortal News and Announcements post"
+                role="button"
                 tabIndex={0}
                 onClick={() => {
                   ReactGA.event({
@@ -51,7 +52,8 @@ const NewsPostsClient: React.FC<NewsPostsClientProps> = ({ news }) => {
                   router.push(`/news/${item.identifier}`);
                 }}
                 onKeyDown={(e) => {
-                  if (e.key === "Enter") {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
                     ReactGA.event({
                       category: "User",
                       action: `Clicked on news post: ${item.title} from news page`,
